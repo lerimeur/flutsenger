@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utilities/styles.dart';
 import 'package:flutsenger_app/component/textfiled.dart';
+import '../component/Button.dart';
 
 class LoginPage extends StatefulWidget {
   // final onLogin;
@@ -61,24 +62,16 @@ class LoginState extends State<LoginPage> {
                 ),
                 Flexible(
                   flex: 1,
-                  child: ElevatedButton(
-                    style: ButtonStyle(),
-                    onPressed: () => print(
-                      'une fonction styler a ete mis en com dsl ${usernameController.text}',
-                    ), //widget.onLogin(usernameController.text, passwordController.text),
-                    child: Text(
-                      'Submit',
-                      style: kSubtitleStyle,
-                    ),
+                  child: MyElevatedButton(
+                    text: 'Submit',
+                    triger: () => print('hello world'),
                   ),
                 ),
                 Padding(
-                  // this is new
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                 ),
               ],
               mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.end,
             ),
           ),
         ));

@@ -64,7 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text(
                     'Skip',
                     style: TextStyle(
-                      color: Color(0xFFfbeeac),
+                      color: Color(0xFFf4d160),
                       fontSize: 20.0,
                     ),
                   ),
@@ -176,7 +176,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               Text(
                                 'Next',
                                 style: TextStyle(
-                                  color: Color(0xFFfbeeac),
+                                  color: Color(0xFFf4d160),
                                   fontSize: 22.0,
                                 ),
                               ),
@@ -208,7 +208,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Text(
                       'Get started',
                       style: TextStyle(
-                        color: Color(0xFFfbeeac),
+                        color: Color(0xFFf4d160),
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
