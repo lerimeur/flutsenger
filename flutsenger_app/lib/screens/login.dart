@@ -19,58 +19,68 @@ class LoginState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.1, 0.4, 0.7, 0.9],
-                  colors: [
-                    Color(0xFF4C97DE),
-                    Color(0xFF3D7BB5),
-                    Color(0xFF316494),
-                    Color(0xFF28527A),
-                  ],
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.1, 0.4, 0.7, 0.9],
+              colors: [
+                Color(0xFF4C97DE),
+                Color(0xFF3D7BB5),
+                Color(0xFF316494),
+                Color(0xFF28527A),
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 150),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: Text(
+                    'Login',
+                    style: headLine,
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-                    Container(height: 150),
-                    Text(
-                      'Login',
-                      style: headLine,
-                    ),
-                    Container(height: 100),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 16),
-                      child: MyTextField(customcontroler: usernameController, obs: false),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 16),
-                      child: MyTextField(
-                        obs: true,
-                        customcontroler: passwordController,
-                      ),
-                    ),
-                    ElevatedButton(
-                      style: ButtonStyle(),
-                      onPressed: () => print(
-                        'une fonction styler a ete mis en com dsl ${usernameController.text}',
-                      ), //widget.onLogin(usernameController.text, passwordController.text),
-                      child: Text(
-                        'Submit',
-                        style: kSubtitleStyle,
-                      ),
-                    )
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.end,
+                Flexible(
+                  flex: 1,
+                  child: MyTextField(customcontroler: usernameController, obs: false),
                 ),
-              ),
-            )));
+                SizedBox(height: 10),
+                Flexible(
+                  flex: 1,
+                  child: MyTextField(
+                    obs: true,
+                    customcontroler: passwordController,
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: ElevatedButton(
+                    style: ButtonStyle(),
+                    onPressed: () => print(
+                      'une fonction styler a ete mis en com dsl ${usernameController.text}',
+                    ), //widget.onLogin(usernameController.text, passwordController.text),
+                    child: Text(
+                      'Submit',
+                      style: kSubtitleStyle,
+                    ),
+                  ),
+                ),
+                Padding(
+                  // this is new
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.end,
+            ),
+          ),
+        ));
   }
 }

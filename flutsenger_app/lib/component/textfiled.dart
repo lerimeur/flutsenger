@@ -15,7 +15,7 @@ class MyTextField extends StatelessWidget {
       autofocus: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Username',
+        labelText: obs == true ? 'Password' : 'Username',
         focusColor: Color(0xFFfbeeac),
         fillColor: Color(0xFF8ac4d0),
       ),
