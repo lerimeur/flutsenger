@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utilities/styles.dart';
+import '../utilities/useful_fct.dart';
+import 'login.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       height: 8.0,
       width: isActive ? 24.0 : 16.0,
       decoration: BoxDecoration(
-        color: isActive ? Colors.white : Color(0xFF7B51D3),
+        color: isActive ? Colors.white : Color(0xFFf4d160),
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -45,10 +47,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               end: Alignment.bottomCenter,
               stops: [0.1, 0.4, 0.7, 0.9],
               colors: [
-                Color(0xFF3594DD),
-                Color(0xFF4563DB),
-                Color(0xFF5036D5),
-                Color(0xFF5B16D0),
+                Color(0xFF4C97DE),
+                Color(0xFF3D7BB5),
+                Color(0xFF316494),
+                Color(0xFF28527A),
               ],
             ),
           ),
@@ -60,11 +62,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () => print('Skip'),
+                    onPressed: () => goOn(LoginPage(), context),
                     child: Text(
                       'Skip',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFFfbeeac),
                         fontSize: 20.0,
                       ),
                     ),
@@ -181,14 +183,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 Text(
                                   'Next',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color(0xFFfbeeac),
                                     fontSize: 22.0,
                                   ),
                                 ),
                                 SizedBox(width: 10.0),
                                 Icon(
                                   Icons.arrow_forward,
-                                  color: Colors.white,
+                                  color: Color(0xFFfbeeac),
                                   size: 30.0,
                                 ),
                               ],
@@ -206,16 +208,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ? Container(
               height: 100.0,
               width: double.infinity,
-              color: Colors.white,
+              color: Color(0xFF8ac4d0),
               child: GestureDetector(
-                onTap: () => print('Get started'),
+                onTap: () => goOn(LoginPage(), context),
                 child: Center(
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 30.0),
                     child: Text(
                       'Get started',
                       style: TextStyle(
-                        color: Color(0xFF5B16D0),
+                        color: Color(0xFFfbeeac),
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
