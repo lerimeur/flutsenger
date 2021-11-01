@@ -1,20 +1,54 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutsenger/page/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void loginfunction() async {
+import 'based_page.dart';
+
+void loginfunction(email, password, context) async {
   try {
     // ignore: unused_local_variable
     UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: "barry.allen@example.com", password: "SuperSecretPassword!");
+        .signInWithEmailAndPassword(email: email, password: password);
+    var currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      Fluttertoast.showToast(
+          msg: "Register Success",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 18.0);
+      Navigator.pop(context);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const BasedApp()));
+    }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       log('No user found for that email.');
+      Fluttertoast.showToast(
+          msg: "No user found for that email.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 4,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 18.0);
       return;
     } else if (e.code == 'wrong-password') {
       log('Wrong password provided for that user.');
+      Fluttertoast.showToast(
+          msg: "Wrong password provided for that user.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 4,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 18.0);
       return;
     }
     inspect(e);
@@ -31,157 +65,72 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool visible = true;
 
+  TextEditingController emailcontroler = TextEditingController();
+  TextEditingController passwordcontroler = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(30),
-      child: Column(
-        children: [
-          const SizedBox(height: 100),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              labelText: 'Email Address',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.email),
-            ),
-          ),
-          const SizedBox(height: 20),
-          TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: visible,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              border: const OutlineInputBorder(),
-              prefixIcon: const Icon(Icons.lock),
-              suffixIcon: IconButton(
-                onPressed: () => setState(() {
-                  visible = !visible;
-                }),
-                icon: Icon(visible ? Icons.visibility : Icons.visibility_off),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('BasedApp'),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          children: [
+            const SizedBox(height: 100),
+            TextFormField(
+              controller: emailcontroler,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                labelText: 'Email Address',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.email),
               ),
             ),
-          ),
-          ElevatedButton(
-              onPressed: () => loginfunction(), child: const Text('Login'))
-        ],
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: passwordcontroler,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: visible,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: const OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  onPressed: () => setState(() {
+                    visible = !visible;
+                  }),
+                  icon: Icon(visible ? Icons.visibility : Icons.visibility_off),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(fontSize: 15),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RegisterScreen(),
+                  ),
+                );
+              },
+              child: const Text(
+                'go register if you dont have an acount',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+                onPressed: () => loginfunction(
+                    emailcontroler.text, passwordcontroler.text, context),
+                child: const Text('Login'))
+          ],
+        ),
       ),
     );
   }
 }
-
-// class LoginScreen extends StatelessWidget {
-//   const LoginScreen({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Padding(
-//         padding: const EdgeInsets.all(30),
-//         child: Center(
-//           child: SingleChildScrollView(
-//             child: Column(
-//               children: [
-//                 const Text(
-//                   'LOGIN',
-//                   style: TextStyle(
-//                       fontWeight: FontWeight.w900,
-//                       fontSize: 60.0,
-//                       color: Colors.blue),
-//                 ),
-//                 const SizedBox(
-//                   height: 25,
-//                 ),
-//                 TextFormField(
-//                   keyboardType: TextInputType.emailAddress,
-//                   decoration: const InputDecoration(
-//                     labelText: 'Email Address',
-//                     border: OutlineInputBorder(),
-//                     prefixIcon: Icon(Icons.email),
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 20,
-//                 ),
-//                 TextFormField(
-//                   keyboardType: TextInputType.visiblePassword,
-//                   obscureText: true,
-//                   decoration: const InputDecoration(
-//                     labelText: 'Password',
-//                     border: OutlineInputBorder(),
-//                     prefixIcon: Icon(Icons.lock),
-//                     suffixIcon: Icon(Icons.remove_red_eye),
-//                   ),
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   children: [
-//                     TextButton(
-//                       onPressed: () {
-//                         print('Forgotted Password!');
-//                       },
-//                       child: Text(
-//                         'Forgot Password?',
-//                         style: TextStyle(
-//                           color: Colors.black.withOpacity(0.4),
-//                           fontSize: 12.0,
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 const SizedBox(
-//                   height: 15,
-//                 ),
-//                 Container(
-//                   clipBehavior: Clip.antiAliasWithSaveLayer,
-//                   width: double.infinity,
-//                   height: 60,
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(100),
-//                   ),
-//                   child: MaterialButton(
-//                     onPressed: () => print("Successul Login."),
-//                     color: Colors.blue,
-//                     child: const Text(
-//                       'LOGIN',
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 30,
-//                 ),
-//                 const Divider(
-//                   color: Colors.black,
-//                   height: 30,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Text(
-//                       '''Don't have an account? ''',
-//                       style: TextStyle(
-//                         color: Colors.black.withOpacity(0.5),
-//                         fontSize: 16.0,
-//                       ),
-//                     ),
-//                     TextButton(
-//                       onPressed: () {
-//                         log('Sign Up');
-//                       },
-//                       child: const Text('Register Now'),
-//                     )
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'login_page.dart';
-
 class BasedApp extends StatefulWidget {
   const BasedApp({Key? key}) : super(key: key);
 
@@ -17,7 +15,7 @@ class _BasedAppState extends State<BasedApp> {
       appBar: AppBar(
         title: const Text('BasedApp'),
       ),
-      body: const LoginScreen(),
+      body: const Text('data'),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutsenger/page/login_page.dart';
 import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
@@ -9,7 +10,10 @@ import 'page/based_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MaterialApp(home: App()));
+  runApp(const MaterialApp(
+    home: App(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 class App extends StatefulWidget {
@@ -31,7 +35,7 @@ class _AppState extends State<App> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return const BasedApp();
+          return const LoginScreen();
         }
 
         return const CircularProgressIndicator();
