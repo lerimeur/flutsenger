@@ -16,7 +16,7 @@ void loginfunction(email, password, context) async {
 
     if (currentUser != null) {
       Fluttertoast.showToast(
-          msg: "Register Success",
+          msg: "Login Success",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 2,

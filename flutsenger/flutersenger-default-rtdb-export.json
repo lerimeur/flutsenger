@@ -1,0 +1,33 @@
+{
+  "conv" : 
+  [ 
+    {
+      "messages" : 
+      [ 
+        {
+          "message" : "Hello, how are you?",
+          "time" : "2018-05-23T12:00:00",
+          "userid" : 1
+        },
+        {
+          "message" : "I'm fine, thank you!",
+          "time" : "2018-05-24T12:00:00",
+          "userid" : 2
+        } 
+      ]
+    } 
+  ],
+  "users" : 
+  [ 
+    {
+      "name" : "Leanne Graham",
+      "userconv" : 0,
+      "username" : "Bret"
+    },
+    {
+      "name" : "Ervin Howell",
+      "userconv" : 0,
+      "username" : "Antonette"
+    }
+  ]
+}
