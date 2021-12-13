@@ -15,14 +15,18 @@ export class ConvController {
 
   @Post()
   async create(@Body() dto: CreateConvDto): Promise<ConvEntity> {
-    const user = await this.userService.findOne(dto.user_uuid)
-    return await this.convService.create(dto, user);
+    const creator_user = await this.userService.findOne(dto.creator_user_uuid)
+    console.log(creator_user);
+
+    const invite_user =  await this.userService.findOneByUserName(dto.user_username);
+    console.log(invite_user);
+    return await this.convService.create(creator_user, invite_user, dto);
   }
 
   @Post('/adduser')
   async addUserToaConv(@Body() dto: AddUserConvDto): Promise<ConvEntity> {
     const conv = await this.convService.findOne(dto.conv_uuid);
-    const user = await this.userService.findOne(dto.user_uuid);
+    const user = await this.userService.findOne(dto.user_username);
 
     return await this.convService.addUser(conv, user);
   }

@@ -15,11 +15,11 @@ export class ConvService {
     private readonly convRepository: Repository<ConvEntity>,
   ) {}
 
-  async create(dto: CreateConvDto, user: UserEntity): Promise<ConvEntity> {
+  async create(creator: UserEntity, invite: UserEntity, dto: CreateConvDto): Promise<ConvEntity> {
     const conv = new ConvEntity();
 
     conv.title = dto.title;
-    conv.users = [user];
+    conv.users = [creator, invite];
     conv.messages = [];
 
     return this.convRepository.save(conv);

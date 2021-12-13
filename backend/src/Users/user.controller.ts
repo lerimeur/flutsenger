@@ -27,10 +27,10 @@ export class UsersController {
     return this.userService.findAll();
   }
 
-  @Get('conv/:id')
-  getconv(@Param('id') id: string): Promise<ConvEntity[]> {
-    return this.userService.getconv(id);
-  }
+  // @Get('conv/:id')
+  // getconv(@Param('id') id: string): Promise<ConvEntity[]> {
+  //   return this.userService.getconv(id);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<UserEntity> {
