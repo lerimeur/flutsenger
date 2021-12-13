@@ -5,5 +5,5 @@ export class AddUserConvDto {
   @IsNotEmpty()
   conv_uuid: string;
   @IsNotEmpty()
-  user_uuid: string;
+  user_username: string;
 }

@@ -16,16 +16,12 @@ export class UsersService {
   async create(dto: CreateUserDto): Promise<UserEntity> {
     const user = new UserEntity();
 
-    user.email = dto.email;
     user.password = await bcrypt.hash(
       dto.password || Math.random().toString(36).substr(2, 8),
       10,
     );
 
-      user.firstName = dto.firstName;
-      user.lastName = dto.lastName;
-      user.age = dto.age;
-
+    user.Username = dto.Username;
     return this.usersRepository.save(user);
   }
 
@@ -39,6 +35,10 @@ export class UsersService {
 
   findOne(id: string): Promise<UserEntity> {
     return this.usersRepository.findOne(id,  {relations: ['conv']});
+  }
+
+  findOneByUserName(Username: string): Promise<UserEntity | undefined> {
+    return this.usersRepository.findOne({Username}, {relations: ['conv']});
   }
 
   async remove(id: string): Promise<void> {

@@ -5,5 +5,7 @@ export class CreateConvDto {
   @IsNotEmpty()
   title: string;
   @IsNotEmpty()
-  user_uuid: string;
+  creator_user_uuid: string;
+  @IsNotEmpty()
+  user_username: string;
 }
