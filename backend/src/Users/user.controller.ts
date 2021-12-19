@@ -32,6 +32,11 @@ export class UsersController {
   //   return this.userService.getconv(id);
   // }
 
+  @Get(':username')
+  findOneByUserName(@Param('username') username: string): Promise<UserEntity> {
+    return this.userService.findOneByUserName(username);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string): Promise<UserEntity> {
     return this.userService.findOne(id);

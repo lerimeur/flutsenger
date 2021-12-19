@@ -1,21 +1,22 @@
-import 'dart:developer';
-
-import 'package:flutsenger/Page/RegisterPage.dart';
+import "package:chat/theme.dart";
 import 'package:flutter/material.dart';
 
+import 'Screens/welcome/welcome_screen.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Fluttersenger',
+    return MaterialApp(
+      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: Register(),
+      theme: lightThemeData(context),
+      darkTheme: darkThemeData(context),
+      home: WelcomeScreen(),
     );
   }
 }

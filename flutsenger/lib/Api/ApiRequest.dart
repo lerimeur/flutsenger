@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
+import '../constants.dart';
+
 Future<User?> createUser(String username, String password) async {
   var url = Uri.parse("http://localhost:8080/users");
   try {
@@ -14,9 +16,10 @@ Future<User?> createUser(String username, String password) async {
     print('Response body: ${response.body}');
     var tmp = json.decode(response.body);
     inspect(tmp);
+
     return User(
       id: tmp['id'],
-      username: tmp['username'],
+      username: tmp['Username'],
     );
   } catch (e) {
     inspect(e);
@@ -26,9 +29,24 @@ Future<User?> createUser(String username, String password) async {
   // return User(response.body);
 }
 
-class User {
-  final int id;
-  final String username;
+Future<User?> logInUser(String username, String password) async {
+  var url = Uri.parse("http://localhost:8080/users/${username}");
+  try {
+    var response = await http.get(
+      url,
+    );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var tmp = json.decode(response.body);
+    inspect(tmp);
+    return User(
+      id: tmp['id'],
+      username: tmp['Username'],
+    );
+  } catch (e) {
+    inspect(e);
+    return null;
+  }
 
-  User({required this.id, required this.username});
+  // return User(response.body);
 }
