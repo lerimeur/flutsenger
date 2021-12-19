@@ -17,7 +17,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: wList.elementAt(_selectedIndex),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: wList,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: kPrimaryColor,

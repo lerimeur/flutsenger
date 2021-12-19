@@ -92,7 +92,7 @@ Login_usage(String username, String password, BuildContext context) async {
   final User? my_user = await logInUser(username, password);
 
   if (my_user != null) {
-    inspect(my_user);
+    // inspect(my_user);
     // ignore: todo
     // TODO print UX Value
     global_User = my_user;

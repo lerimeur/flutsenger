@@ -16,4 +16,12 @@ class User {
   final String username;
 
   User({required this.id, required this.username});
+  getUsername() => username;
+}
+
+class Conv {
+  final String id;
+  final String title;
+
+  Conv(this.title, this.id);
 }
