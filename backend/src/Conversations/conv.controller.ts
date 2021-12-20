@@ -16,9 +16,9 @@ export class ConvController {
   @Post()
   async create(@Body() dto: CreateConvDto): Promise<ConvEntity> {
     const creator_user = await this.userService.findOne(dto.creator_user_uuid)
-    console.log(creator_user);
-
+    
     const invite_user =  await this.userService.findOneByUserName(dto.user_username);
+    console.log(creator_user);
     console.log(invite_user);
     return await this.convService.create(creator_user, invite_user, dto);
   }

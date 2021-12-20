@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:chat/Screens/CreateConv/CreateConv.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,13 +32,12 @@ Future<User?> createUser(String username, String password) async {
 }
 
 Future<User?> logInUser(String username, String password) async {
-  var url = Uri.parse("http://localhost:8080/users/${username}");
+  var url = Uri.parse("http://localhost:8080/users/${username}/${password}");
   try {
     var response = await http.get(
       url,
     );
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
+    // print('Response status: ${response.status
     var tmp = json.decode(response.body);
     // inspect(tmp);
     return User(
@@ -78,4 +78,25 @@ Future<List<Conv>> getAllConv() async {
   }
 
   // return User(response.body);
+}
+
+void createConv(String title, String username) async {
+  var url = Uri.parse("http://localhost:8080/conv");
+  if (global_User == null) return;
+  print("GO API");
+  try {
+    var response = await http.post(
+      url,
+      body: {
+        "title": title,
+        "creator_user_uuid": global_User?.id,
+        "user_username": username,
+      },
+    );
+    inspect(response);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  } catch (e) {
+    inspect(e);
+  }
 }

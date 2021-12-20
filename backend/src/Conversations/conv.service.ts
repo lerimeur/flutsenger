@@ -21,7 +21,8 @@ export class ConvService {
     conv.title = dto.title;
     conv.users = [creator, invite];
     conv.messages = [];
-
+    console.log(conv);
+    
     return this.convRepository.save(conv);
   }
 

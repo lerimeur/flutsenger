@@ -16,10 +16,7 @@ export class UsersService {
   async create(dto: CreateUserDto): Promise<UserEntity> {
     const user = new UserEntity();
 
-    user.password = await bcrypt.hash(
-      dto.password || Math.random().toString(36).substr(2, 8),
-      10,
-    );
+    user.password = await bcrypt.hash(dto.password, 10);
 
     user.Username = dto.Username;
     return this.usersRepository.save(user);

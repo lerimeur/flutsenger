@@ -91,6 +91,7 @@ class _LoginState extends State<Login> {
 Login_usage(String username, String password, BuildContext context) async {
   final User? my_user = await logInUser(username, password);
 
+  inspect(my_user);
   if (my_user != null) {
     // inspect(my_user);
     // ignore: todo
@@ -121,6 +122,5 @@ Login_usage(String username, String password, BuildContext context) async {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-    inspect(my_user);
   }
 }

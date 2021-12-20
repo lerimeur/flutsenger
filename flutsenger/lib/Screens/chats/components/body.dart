@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:chat/Api/Apirequest.dart';
@@ -14,59 +15,47 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  List<Conv>? my_Conv;
+  List<Conv> my_Conv = [];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (my_Conv == null) {
-  //     setState(() {
-  //       my_Conv = getAllConv();
-  //     });
-  //   }
-  // }
+  Timer? timer;
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => refresh());
+  }
+
+  refresh() {
+    log("refresh");
+    getAllConv().then(
+      (value) => setState(
+        () {
+          my_Conv = value;
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getAllConv(),
-      builder: (context, AsyncSnapshot<List<Conv>> snapshot) {
-        if (snapshot.hasData) {
-          my_Conv = snapshot.data;
-
-          inspect(my_Conv);
-        }
-        if (snapshot.hasError) {
-          inspect(snapshot.error);
-          return Text("snap got an error");
-        }
-        if (my_Conv != null && my_Conv!.isNotEmpty) {
-          return ListView.builder(
-            itemCount: snapshot.data?.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(snapshot.data![index].title),
-              );
-            },
+    if (my_Conv.isNotEmpty) {
+      return ListView.builder(
+        itemCount: my_Conv.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(my_Conv[index].title),
           );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+        },
+      );
+    }
+    return Center(
+      child: CircularProgressIndicator(),
     );
-    // return ListView.builder(
-    //   itemCount: chatsData.length,
-    //   itemBuilder: (context, index) => ChatCard(
-    //     chat: chatsData[index],
-    //     press: () => log("chat card"),
-    //     // press: () => Navigator.push(
-    //     //   context,
-    //     //   MaterialPageRoute(
-    //     //     builder: (context) => MessagesScreen(),
-    //     //   ),
-    //     // ),
-    //   ),
-    // );
   }
 }

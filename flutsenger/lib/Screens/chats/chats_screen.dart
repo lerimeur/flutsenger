@@ -1,3 +1,4 @@
+import 'package:chat/Screens/CreateConv/CreateConv.dart';
 import 'package:chat/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class ChatsScreen extends StatefulWidget {
 class _ChatsScreenState extends State<ChatsScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> wList = [Body(), Text("profile")];
+  List<Widget> wList = [Body(), Text(global_User!.username)];
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
         children: wList,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreateConv(),
+            ),
+          );
+        },
         backgroundColor: kPrimaryColor,
         child: Icon(
           Icons.person_add_alt_1,
