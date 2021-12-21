@@ -46,6 +46,19 @@ export class ConvService {
     return this.convRepository.findOne({ where: { email } });
   }
 
+  async findallbyuserid(item: ConvEntity[]): Promise<ConvEntity[]> {
+    let tab = [];
+    for (let i = 0; i < item.length; i++) {
+      let tmp = await this.convRepository.findOne(item[i].id, {relations: ['messages']});
+      tab.push(tmp);
+    }
+
+    return tab;
+  }
+  // getallmessage(idconv: String): Promise<ConvEntity> {
+  //   return this.convRepository.findOne(idconv, {relations: ['messages']});
+  // }
+
   findOne(id: string): Promise<ConvEntity> {
     return this.convRepository.findOne(id, {relations: ['users', 'messages']});
   }

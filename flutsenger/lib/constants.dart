@@ -19,9 +19,21 @@ class User {
   getUsername() => username;
 }
 
+class Message {
+  final String mess;
+  final DateTime createdDate;
+  final String sender;
+
+  Message(this.mess, this.createdDate, this.sender);
+}
+
 class Conv {
   final String id;
   final String title;
+  // final List<Message> messages;
 
-  Conv(this.title, this.id);
+  Conv(
+    this.title,
+    this.id,
+  );
 }

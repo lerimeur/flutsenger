@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:chat/Api/Apirequest.dart';
+import 'package:chat/Screens/Message/message_screen.dart';
 import 'package:chat/components/filled_outline_button.dart';
 import 'package:chat/constants.dart';
 import 'package:chat/models/Chat.dart';
@@ -28,12 +29,14 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
+    refresh();
     timer = Timer.periodic(Duration(seconds: 5), (Timer t) => refresh());
   }
 
   refresh() {
-    log("refresh");
+    print("refresh");
     getAllConv().then(
+      //todo check si il y a des diff et sinon go faire une autre maniere de fetch les messages
       (value) => setState(
         () {
           my_Conv = value;
@@ -48,9 +51,18 @@ class _BodyState extends State<Body> {
       return ListView.builder(
         itemCount: my_Conv.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(my_Conv[index].title),
+          return ChatCard(
+            press: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MessagesScreen(
+                  conv: my_Conv[index],
+                ),
+              ),
+            ),
+            conv: my_Conv[index],
           );
+          // title: Text(my_Conv[index].title),
         },
       );
     }

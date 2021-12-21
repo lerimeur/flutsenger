@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, Param, Post } from '@nestjs/common';
 
 import { CreateConvDto } from './dto/create-conv.dto';
 import { ConvService } from './conv.service';
@@ -36,9 +36,16 @@ export class ConvController {
     return this.convService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<ConvEntity> {
+  @Get('/message/:id')
+  async GetallmessageofConv(@Param('id') id: string): Promise<ConvEntity> {
     return this.convService.findOne(id);
+  }
+
+  @Get(':id')
+  async findAllbyUserId(@Param('id') id: string): Promise<ConvEntity[]> {
+    let tmp = await this.userService.findOne(id);
+    console.log(tmp);
+    return this.convService.findallbyuserid(tmp.conv);
   }
 
   @Delete(':id')

@@ -29,9 +29,12 @@ export class UsersController {
     return this.userService.findAll();
   }
 
-  // @Get('conv/:id')
+  // @Get('/conv/:id')
   // getconv(@Param('id') id: string): Promise<ConvEntity[]> {
-  //   return this.userService.getconv(id);
+  //   const tmp =  this.userService.getconv(id);
+  //   console.log(tmp);
+    
+  //   return tmp;
   // }
 
   @Get(':username/:password')
