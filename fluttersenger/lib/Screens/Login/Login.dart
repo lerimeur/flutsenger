@@ -7,6 +7,7 @@ import 'package:chat/components/filled_outline_button.dart';
 import 'package:chat/components/primary_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:localstore/localstore.dart';
 
 import '../../constants.dart';
 
@@ -20,6 +21,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
+  bool? stay = false;
+
+  final db = Localstore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +58,30 @@ class _LoginState extends State<Login> {
             Spacer(
               flex: 3,
             ),
+            Row(
+              children: [
+                Checkbox(
+                  value: stay,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      stay = value!;
+                    });
+                  },
+                ),
+                Text('Stay logged in'),
+              ],
+            ),
             GoToRegister(),
             Spacer(),
             PrimaryButton(
               press: () {
                 if (_username.text.length == 0 || _password.text.length == 0) return;
-                Login_usage(_username.text, _password.text, context);
+                // Login_usage(_username.text, _password.text, context);
+                db.collection('user').doc('0').set(
+                  {'username': _username.text, 'password': _password.text},
+                );
+                final user = db.collection('user').doc('0');
+                inspect(user);
               },
               text: "Login",
             ),
