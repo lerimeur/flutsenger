@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  production:
+    container_name: prodflutter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.folio.rule=Host(`flutter.rumpiz.fr`)"
+      - "traefik.http.routers.folio.entrypoints=web"
+    networks:
+      - traefik
+networks:
+  traefik:
+    external: true
+      
